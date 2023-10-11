@@ -1,0 +1,29 @@
+<%- include("includes/head.ejs"); %>
+<body>
+   <center> <h1>Mini Chat-App</h1>
+    <h3>All chats</h3>
+    <form action="/chats/new" method="get">
+        <button>New Chat</button>
+    </form>
+    <br>
+   </center>
+    <% for(chat of chats){ %>
+        <div class="chat">
+            <p>From: <%= chat.from %></p>
+            <div class="msg">
+            <form action="/chats/<%= chat.id%>/edit" method="get">
+                <p>Message: <%= chat.msg %></p>
+                <button>Edit chat</button>
+            </form>
+            <br>
+            <form action="/chats/<%= chat.id%>?_method=DELETE" method="post">
+                <button>Delete chat</button>
+            </form>
+            </div>
+            <p>Receive by: <%= chat.to %></p>
+            <hr>
+            <p>Time: <%= chat.created_at.toString().split(" ")[4] %></p><br>
+            <p>Day & Date: <%= chat.created_at.toString().split(" ").slice(0,4).join("-")%></p>
+        </div>
+    <% } %>
+</body>
